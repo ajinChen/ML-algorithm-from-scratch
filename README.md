@@ -25,7 +25,7 @@ L1 regularization adds the sum of the absolute value of the coefficient to loss 
 1. L1 regularization allows superfluous coefficients to shrink to zero
 2. L1 regularization can reduce the number of features and select features
 
-<img src="images/L1_for.png" width="200" style="padding-top:5px"> <img src="images/L1.png" width="400" style="padding-top:5px"> 
+<img src="images/L1_for.png" width="200" style="padding-top:5px" align="top"> <img src="images/L1.png" width="200" style="padding-top:5px"> 
 
 ```python
 class LassoLogistic:
@@ -45,7 +45,7 @@ L2 regularization adds the sum of the square of the parameters into the loss fun
 1. L2 regularization tends to shrink coefficients evenly
 2. L2 regularization useful when you have collinear/codependent features since L2 regularization will reduce the variance of these coefficient estimates
 
-<img src="images/L2_for.png" width="200" style="padding-top:5px"> <img src="images/L2.png" width="400" style="padding-top:5px"> 
+<img src="images/L2_for.png" width="200" style="padding-top:5px" align="top"> <img src="images/L2.png" width="200" style="padding-top:5px"> 
 
 ```python
 class RidgeRegression:
@@ -75,7 +75,7 @@ Decision Tree is a tree-based algorithm which find split point giving least MSE 
 
 ##### Design Decision Tree Structure:
 
-Internal tree node class: perform feature comparisons and split
+`Internal tree node class`: perform feature comparisons and split
 
 ```python
 class DecisionNode:
@@ -92,7 +92,7 @@ class DecisionNode:
             return self.rchild.predict(x_test)
 ```
 
-Leaf node class: make prediction for rectangular hypervolumes
+`Leaf node class`: make prediction for rectangular hypervolumes
 
 ```python
 class LeafNode:
@@ -123,7 +123,7 @@ After node class implementation, we need to define general decision tree class t
 
 The key of random forest is adding randomness:
 
-1. Random subset of training data
+1. Random subset of training data<br>
    Bagging uses bootstrapping: from 𝑛 records, randomly select 𝑛 with replacement
 
    ```python
@@ -136,10 +136,10 @@ The key of random forest is adding randomness:
        return X_boot, y_boot, idx_oob
    ```
 
-2. Random subset of features
+2. Random subset of features<br>
    `max_features` : Degrade training by forgetting some features exist when making splitting decisions
 
-3. A bag of decision trees
+3. A bag of decision trees<br>
    Give many weaker decision trees to make average predict from them
 
    ```python
@@ -159,7 +159,7 @@ The key of random forest is adding randomness:
        ...
    ```
 
-4. Out-of-bag (OOB) score
+4. Out-of-bag (OOB) score<br>
 
    Use the out-of-bag data of each decision tree as the validation set.
 
