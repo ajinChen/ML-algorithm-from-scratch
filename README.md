@@ -123,7 +123,7 @@ After node class implementation, we need to define general decision tree class t
 
 [Random forest](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/RandomForest/rf.py) is a advanced algorithm using the collection of decision trees trained on subset of training data (bootstrapping) and sometimes ignoring features, average or majority vote among trees
 
-The key of random forest is adding randomness:
+#### The key of random forest is adding randomness:
 
 1. Random subset of training data<br>
    Bagging uses bootstrapping: from 𝑛 records, randomly select 𝑛 with replacement
