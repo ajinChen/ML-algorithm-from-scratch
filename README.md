@@ -162,7 +162,6 @@ After node class implementation, we need to define general decision tree class t
    ```
 
 4. Out-of-bag (OOB) score<br>
-
    Use the out-of-bag data of each decision tree as the validation set.
 
    ```python
