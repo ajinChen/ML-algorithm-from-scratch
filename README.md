@@ -197,7 +197,8 @@ We need to avoid `P(w|c) = 0` in below cases since it will lead to entire produc
 3. Likelihood of any unknown / never used word is small: `1 / (wordcount(c) + |V| + 1)`
    in which `|V|` is the number of uni-word in train data
 
-<img src="images/w_bayes.png" width="400" style="padding-top:5px"> <img src="images/w2d.png" width="400" style="padding-top:5px"> 
+<img src="images/w_bayes.png" width="400" style="padding-top:5px"> 
+<img src="images/w2d.png" width="400" style="padding-top:5px"> 
 
 ```python
 class NaiveBayes:
