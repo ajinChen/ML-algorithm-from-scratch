@@ -65,7 +65,7 @@ In this repo, I will introduce exclusive clustering algorithms, including Kmean,
 
 ### K-Means
 
-[K-means](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/Kmeans/kmeans.py). is one simple but powerful unsupervised learning algorithm to solve the clustering problem. It can group whole data into k clusters depending on the similarity of each data depending on the objective function we give. We can implement the Kmeans algorithm following blow steps:
+[K-means](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/Kmeans/kmeans.py) is one simple but powerful unsupervised learning algorithm to solve the clustering problem. It can group whole data into k clusters depending on the similarity of each data depending on the objective function we give. We can implement the Kmeans algorithm following blow steps:
 
 1. Set k as the number of the cluster we want to algorithm
 2. Randomly choose k data as initial centroids of cluster
