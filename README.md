@@ -299,7 +299,7 @@ The main idea behind the Gradient Boosting is to build models gradually & sequen
 
 The procedure of gradient boosting and partial code are showed below:
 
-<img src="images/gd.png" width="600" style="padding-top:5px">
+<img src="images/gd.png" width="500" style="padding-top:5px">
 
 ```python
 def gradient_boosting(X, y, num_iter, max_depth=1, nu=0.1):
@@ -327,7 +327,7 @@ def gradient_boosting(X, y, num_iter, max_depth=1, nu=0.1):
 
 Matrix Factorization is a class of collaborative filter algorithm used in recommender system by using categorical embedding method to create users embedding & item embedding and predict how likely users will buy a specific item. 
 
-<img src="images/recom.png" width="500" style="padding-top:5px">
+<img src="images/recom.png" width="400" style="padding-top:5px">
 
 ```python
 class MF(nn.Module):
@@ -357,7 +357,7 @@ In [NumPy MF model](https://github.com/ajinChen/machine-learning-from-scratch/bl
 
 In [PyTorch MF model](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/MatrixFactorization/mf.py), we firstly initialize user embedding and item embedding by calling `nn.Embedding()`. And choose the loss function ( `MSE` for regression and `log-loss` for classification) and calling `.backward()` to calculate the gradient through backpropagation and use `.step()` to update the parameter.
 
-<img src="images/mf.png" width="500" height='400' style="padding-top:5px">
+<img src="images/mf.png" width="500" style="padding-top:5px">
 
 ## Unsupervised Learning Algorithm
 
