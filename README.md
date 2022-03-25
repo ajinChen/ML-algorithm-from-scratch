@@ -106,7 +106,7 @@ class LeafNode:
 
 After node class implementation, we need to define general decision tree class to realize `fit`, `best_split_func`, and `predict` for [RegressionTree & ClassifierTree class](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/DecisionTree/dtree.py)
 
-#### Hyperparameter
+#### Hyperparameters:
 
 `Max_depth`: Restricts how many splits tree can make preventing tree from getting too specific to training set
 
