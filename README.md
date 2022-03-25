@@ -45,7 +45,7 @@ L2 regularization adds the sum of the square of the parameters into the loss fun
 1. L2 regularization tends to shrink coefficients evenly <img src="images/L2.png" width="250" style="padding-top:5px" align="right"> 
 2. L2 regularization useful when you have collinear/codependent features since L2 regularization will reduce the variance of these coefficient estimates
 
-<img src="images/L2_for.png" width="150" style="padding-top:5px" align="top">
+<img src="images/L2_for.png" width="160" style="padding-top:5px" align="top">
 
 ```python
 class RidgeRegression:
@@ -69,9 +69,10 @@ class RidgeRegression:
 4. OLS & L2 regularized linear regression have symbolic solutions
    L1 linear regression and L1/L2 logistic regression require iterative solution
 
+
 ### Decision Tree
 
-Decision Tree is a tree-based algorithm which find split point giving least MSE (least residual variance) or least gini impurity (high purity) and partitions feature space into rectangular hypervolumes predicting average/most common y in volume.
+Decision Tree is a tree-based algorithm which find split point giving least MSE (least residual variance) or least gini impurity (high purity) and partitions feature space into rectangular hypervolumes predicting average / most common y in volume.
 
 ##### Design Decision Tree Structure:
 
@@ -116,6 +117,7 @@ After node class implementation, we need to define general decision tree class t
 | Avoid inefficiency and the distance metric requirement of kNN | Easy to overfitting and killing generality |
 | No need to normalize data                                    |                                            |
 | partition (nominal/ordinal) categorical variables by subsets as "regions" |                                            |
+
 
 ### Random Forest
 
