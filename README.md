@@ -259,11 +259,11 @@ class NaiveBayes:
 
 The principle behind boosting algorithms is first we built a model on the training dataset, then a second model is built to rectify the errors present in the first model. This procedure is continued until and unless the errors are minimized, and the dataset is predicted correctly.
 
-<img src="images/ada_im.png" width="600" style="padding-top:5px">
+<img src="images/ada_im.png" width="500" style="padding-top:5px">
 
 The procedure of adaboost and partial code are showed below:
 
-<img src="images/adaboost.png" width="600" style="padding-top:5px">
+<img src="images/adaboost.png" width="500" style="padding-top:5px">
 
 ```python
 def adaboost(X, y, num_iter, max_depth=1):
