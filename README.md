@@ -59,7 +59,7 @@ class RidgeRegression:
     	...
 ```
 
-##### Key Conclusion for Regularization:
+#### Key Conclusion for Regularization:
 
 1. Regularization increases generality at cost of some bias
 2. Hard constraint: min-loss is inside safe zone or on zone border
@@ -74,7 +74,7 @@ class RidgeRegression:
 
 Decision Tree is a tree-based algorithm which find split point giving least MSE (least residual variance) or least gini impurity (high purity) and partitions feature space into rectangular hypervolumes predicting average / most common y in volume.
 
-##### Design Decision Tree Structure:
+#### Design Decision Tree Structure:
 
 `Internal tree node class`: perform feature comparisons and split
 
@@ -106,7 +106,7 @@ class LeafNode:
 
 After node class implementation, we need to define general decision tree class to realize `fit`, `best_split_func`, and `predict` for [RegressionTree & ClassifierTree class](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/DecisionTree/dtree.py)
 
-##### Hyperparameter
+#### Hyperparameter
 
 `Max_depth`: Restricts how many splits tree can make preventing tree from getting too specific to training set
 
