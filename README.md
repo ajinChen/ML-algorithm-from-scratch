@@ -22,10 +22,10 @@ Regularization using the constraint on the average magnitude of the coefficients
 
 L1 regularization adds the sum of the absolute value of the coefficient to loss function which help reduce model complexity and improve generality. The L1 regularized coefficients located on the diamond-shaped zone has below pros:
 
-1. L1 regularization allows superfluous coefficients to shrink to zero <img src="images/L1.png" width="200" style="padding-top:5px" align="right"> 
+1. L1 regularization allows superfluous coefficients to shrink to zero <img src="images/L1.png" width="300" style="padding-top:5px" align="right"> 
 2. L1 regularization can reduce the number of features and select features
 
-<img src="images/L1_for.png" width="200" style="padding-top:5px" align="top">
+<img src="images/L1_for.png" width="150" style="padding-top:5px" align="top">
 
 ```python
 class LassoLogistic:
@@ -42,11 +42,10 @@ class LassoLogistic:
 
 L2 regularization adds the sum of the square of the parameters into the loss function which also help reduce model complexity and improve generality. The L2 regularized coefficients located on the circle-shaped zone has below pros: 
 
-1. L2 regularization tends to shrink coefficients evenly
+1. L2 regularization tends to shrink coefficients evenly <img src="images/L2.png" width="300" style="padding-top:5px" align="right"> 
 2. L2 regularization useful when you have collinear/codependent features since L2 regularization will reduce the variance of these coefficient estimates
 
-<img src="images/L2_for.png" width="200" style="padding-top:5px" align="top"> <img src="images/L2.png" width="200" style="padding-top:5px"> 
-
+<img src="images/L2_for.png" width="150" style="padding-top:5px" align="top">
 ```python
 class RidgeRegression:
     def __init__(self,
