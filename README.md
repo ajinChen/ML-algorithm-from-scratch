@@ -184,7 +184,7 @@ After node class implementation, we need to define general decision tree class t
 
 ## Naïve Bayes
 
-Naïve Bayes model is based on the Bayes' theorem under the naïve assumption: conditional independence. In this assumption, we don't consider the order of the words (if we don't use this assumption, we need to consider all combinations (relation) for n words, which grow exponentially with length n)
+[Naïve Bayes](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/Na%C3%AFveBayes/bayes.py) model is based on the Bayes' theorem under the naïve assumption: conditional independence. In this assumption, we don't consider the order of the words (if we don't use this assumption, we need to consider all combinations (relation) for n words, which grow exponentially with length n)
 
 <img src="images/bayes.png" width="400" style="padding-top:5px"> 
 
@@ -255,11 +255,72 @@ class NaiveBayes:
 
 ## Adaboost
 
-...
+[AdaBoost](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/Adaboost/adaboost.py) also called adaptive boosting is a technique in machine learning used as an ensemble method which improving the prediction power by converting a number of weak learners to strong learners. The most common algorithm used with AdaBoost is decision stumps which means decision trees with only 1 split.<br>
+The principle behind boosting algorithms is first we built a model on the training dataset, then a second model is built to rectify the errors present in the first model. This procedure is continued until and unless the errors are minimized, and the dataset is predicted correctly.
+
+<img src="images/ada_im.png" width="600" style="padding-top:5px">
+
+The procedure of adaboost and partial code are showed below:
+
+<img src="images/adaboost.png" width="400" style="padding-top:5px">
+
+```python
+def adaboost(X, y, num_iter, max_depth=1):
+    """
+    Given an numpy matrix X, a array y and num_iter return trees and weights
+    Input: X, y, num_iter
+    Outputs: array of trees from DecisionTreeClassifier, trees_weights array of floats
+    """
+    trees, trees_weights = [], []
+    N, _ = X.shape
+    w = np.ones(N) / N
+    delta = 0.0001
+    for i in range(num_iter):
+        tree = DecisionTreeClassifier(max_depth=max_depth, random_state=0)
+        tree.fit(X, y, sample_weight=w)
+        y_hat = tree.predict(X)
+        mask = [int(x) if int(x) == 1 else 0 for x in (y_hat != y)]
+        error = np.dot(w, (y_hat != y)) / np.sum(w)
+        alpha = np.log((1-error) / (error+delta))
+        w = np.multiply(w, np.exp([x * alpha for x in mask]))
+        trees.append(tree)
+        trees_weights.append(alpha)
+    return trees, trees_weights
+```
 
 ## Gradient Boosting
 
-...
+[Gradient boosting](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/GradientBoosting/gradient_boosting.py) is an advanced model standing out for its prediction speed and accuracy, particularly with large and complex datasets by helping us minimize bias error (residual) of the additive models.
+
+The main idea behind the Gradient Boosting is to build models gradually & sequentially and these subsequent models try to reduce the errors of the previous model. The only difference between the design of Regressor and classifier is the Loss function, like `MSE` for regression and `log-loss` for classification. The objective here is to minimize this loss function by adding weak learners using gradient descent.
+
+<img src="images/gd_im.png" width="600" style="padding-top:5px">
+
+The procedure of gradient boosting and partial code are showed below:
+
+<img src="images/gd.png" width="400" style="padding-top:5px">
+
+```python
+def gradient_boosting(X, y, num_iter, max_depth=1, nu=0.1):
+    """
+    Given X, a array y and num_iter return y_mean and trees
+    Input: X, y, num_iter
+           max_depth
+           nu: shinkage
+    Outputs: y_mean, array of trees from DecisionTreeRegression
+    """
+    trees = []
+    N, _ = X.shape
+    y_mean = np.mean(y)
+    fm = y_mean * np.ones(N)
+    for i in range(num_iter):
+        rm = y - fm
+        tree = DecisionTreeRegressor(max_depth=max_depth, random_state=0)
+        tree.fit(X, rm)
+        fm += nu * tree.predict(X)
+        trees.append(tree)
+    return y_mean, trees  
+```
 
 ## Matrix Factorization
 
