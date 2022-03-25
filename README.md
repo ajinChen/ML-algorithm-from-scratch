@@ -295,7 +295,7 @@ def adaboost(X, y, num_iter, max_depth=1):
 
 The main idea behind the Gradient Boosting is to build models gradually & sequentially and these subsequent models try to reduce the errors of the previous model. The only difference between the design of Regressor and classifier is the Loss function, like `MSE` for regression and `log-loss` for classification. The objective here is to minimize this loss function by adding weak learners using gradient descent.
 
-<img src="images/gd_im.png" width="600" style="padding-top:5px">
+<img src="images/gd_im.png" width="500" style="padding-top:5px">
 
 The procedure of gradient boosting and partial code are showed below:
 
