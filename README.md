@@ -70,7 +70,7 @@ class RidgeRegression:
    L1 linear regression and L1/L2 logistic regression require iterative solution
 
 
-### Decision Tree
+## Decision Tree
 
 Decision Tree is a tree-based algorithm which find split point giving least MSE (least residual variance) or least gini impurity (high purity) and partitions feature space into rectangular hypervolumes predicting average / most common y in volume.
 
@@ -119,7 +119,7 @@ After node class implementation, we need to define general decision tree class t
 | partition (nominal/ordinal) categorical variables by subsets as "regions" |                                            |
 
 
-### Random Forest
+## Random Forest
 
 [Random forest](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/RandomForest/rf.py) is a advanced algorithm using the collection of decision trees trained on subset of training data (bootstrapping) and sometimes ignoring features, average or majority vote among trees
 
@@ -183,19 +183,19 @@ The key of random forest is adding randomness:
 | ----------------------------------------------- | ---------------------------------- |
 | Increase accuracy without a tendency to overfit | Slow and need a lot of computation |
 
-### Naïve Bayes
+## Naïve Bayes
 
 ...
 
-### Adaboost
+## Adaboost
 
 ...
 
-### Gradient Boosting
+## Gradient Boosting
 
 ...
 
-### Matrix Factorization
+## Matrix Factorization
 
 ...
 
@@ -228,7 +228,7 @@ Clustering is one of the main unsupervised learning problems, which needs a clus
 
 In this repo, I will introduce exclusive clustering algorithms, including Kmean, Kmean++, and spectral clustering to deal with different clustering problems and apply them to image clustering problems.
 
-### K-Means
+## K-Means
 
 [K-means](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/Kmeans/kmeans.py) is one simple but powerful unsupervised learning algorithm to solve the clustering problem. It can group whole data into k clusters depending on the similarity of each data depending on the objective function we give. We can implement the Kmeans algorithm following blow steps:
 
@@ -258,7 +258,7 @@ plt.show()
 
 Kmeans algorithm is really sensitive to the initial k centroids, if we randomly choose the k centroids, it may give us a different answer of the k cluster. We need to make this algorithm more stable, so we have K-means++.
 
-### K-Means++
+## K-Means++
 
 Kmeans++ is a more stable unsupervised algorithm to make k clusters prediction, which discards the way of randomly choosing initial k centroids. In Kmeans++, we choose k initial centroids with low similarity with each other by following the below steps:
 
@@ -282,7 +282,7 @@ fig, ax = plt.subplots(1, 2, figsize=(16, 6))
 
 We can discover that the first plot on Kmeans doesn't work well in choosing the 5 centroids for each cluster of original data. However, the second plot on K-means++ works much better on choosing the 5 centroids for each cluster of original data.
 
-### Spectral Clustering
+## Spectral Clustering
 
 Now let's try Kmeans and Kmeans++ on concentric circle data, the performance of these methods is really poor which could not identify the clusters in a no_linear way. It is because the objective function we define in the Kmeans and Kmeans++ is distance-based. We need to choose another method that can help us deal with this no-linear cluster problem.
 Spectral Clustering is a better choice to deal with this problem, which uses an affinity matrix and a degree matrix to represent the similarity of data. We can implement spectral clustering below steps:
@@ -304,7 +304,7 @@ fig, ax = plt.subplots(2, 3, figsize=(16, 10))
 
 <img src="images/spectral_clustering.png" width="550">
 
-### Image Clustering (Application)
+## Image Clustering (Application)
 
 Unsupervised learning like K-means can be implemented on image data, which can help us realize image compression and detect the main component of the image.
 
