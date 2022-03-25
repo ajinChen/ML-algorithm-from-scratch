@@ -351,15 +351,13 @@ class MF(nn.Module):
         return torch.sigmoid((U*V).sum(1) +  b_u  + b_v)
 ```
 
-
-
-In this repo, I implement the MF algorithm system by PyTorch and NumPy. <br>
-
-<img src="images/mf.png" width="500" style="padding-top:5px">
+In this repo, I implement the MF algorithm system by PyTorch and NumPy.
 
 In [NumPy MF model](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/MatrixFactorization/mf.py), we can calculate the gradient by using SciPy sparse matrix which can speed up calculation since we don't need to persistent the whole utility matrix in computer memory. After we complete the training process and get the embedding for users and items, we can recommend items to user based on prediction. 
 
 In [PyTorch MF model](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/MatrixFactorization/mf.py), we firstly initialize user embedding and item embedding by calling `nn.Embedding()`. And choose the loss function ( `MSE` for regression and `log-loss` for classification) and calling `.backward()` to calculate the gradient through backpropagation and use `.step()` to update the parameter.
+
+<img src="images/mf.png" width="500" height='400' style="padding-top:5px">
 
 ## Unsupervised Learning Algorithm
 
