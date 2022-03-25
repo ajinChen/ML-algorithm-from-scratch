@@ -186,7 +186,7 @@ After node class implementation, we need to define general decision tree class t
 
 Naïve Bayes model is based on the Bayes' theorem under the naïve assumption: conditional independence. In this assumption, we don't consider the order of the words (if we don't use this assumption, we need to consider all combinations (relation) for n words, which grow exponentially with length n)
 
-<img src="images/Bayes.png" width="200" style="padding-top:5px"> 
+<img src="images/bayes.png" width="400" style="padding-top:5px"> 
 
 #### Estimate P(w|c)
 
@@ -197,7 +197,7 @@ We need to avoid `P(w|c) = 0` in below cases since it will lead to entire produc
 3. Likelihood of any unknown / never used word is small: `1 / (wordcount(c) + |V| + 1)`
    in which `|V|` is the number of uni-word in train data
 
-<img src="images/w_bayes.png" width="200" style="padding-top:5px"> <img src="images/w2d.png" width="200" style="padding-top:5px"> 
+<img src="images/w_bayes.png" width="400" style="padding-top:5px"> <img src="images/w2d.png" width="400" style="padding-top:5px"> 
 
 ```python
 class NaiveBayes:
@@ -226,7 +226,7 @@ class NaiveBayes:
 
 We need to avoid floating point underflow, so need to use `log` to change product becomes summation.
 
-<img src="images/d2c.png" width="200" style="padding-top:5px">
+<img src="images/d2c.png" width="400" style="padding-top:5px">
 
 - `P(c)` is ratio of docs in *c* to overall number of docs
 - `P(w|c)` is ratio of word count of *w* in *c* to total word count in *c*
