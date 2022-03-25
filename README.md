@@ -256,13 +256,14 @@ class NaiveBayes:
 ## Adaboost
 
 [AdaBoost](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/Adaboost/adaboost.py) also called adaptive boosting is a technique in machine learning used as an ensemble method which improving the prediction power by converting a number of weak learners to strong learners. The most common algorithm used with AdaBoost is decision stumps which means decision trees with only 1 split.<br>
+
 The principle behind boosting algorithms is first we built a model on the training dataset, then a second model is built to rectify the errors present in the first model. This procedure is continued until and unless the errors are minimized, and the dataset is predicted correctly.
 
 <img src="images/ada_im.png" width="600" style="padding-top:5px">
 
 The procedure of adaboost and partial code are showed below:
 
-<img src="images/adaboost.png" width="400" style="padding-top:5px">
+<img src="images/adaboost.png" width="600" style="padding-top:5px">
 
 ```python
 def adaboost(X, y, num_iter, max_depth=1):
@@ -298,7 +299,7 @@ The main idea behind the Gradient Boosting is to build models gradually & sequen
 
 The procedure of gradient boosting and partial code are showed below:
 
-<img src="images/gd.png" width="400" style="padding-top:5px">
+<img src="images/gd.png" width="600" style="padding-top:5px">
 
 ```python
 def gradient_boosting(X, y, num_iter, max_depth=1, nu=0.1):
