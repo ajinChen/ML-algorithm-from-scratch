@@ -325,11 +325,41 @@ def gradient_boosting(X, y, num_iter, max_depth=1, nu=0.1):
 
 ## Matrix Factorization
 
-...
+Matrix Factorization is a class of collaborative filter algorithm used in recommender system by using categorical embedding method to create users embedding & item embedding and predict how likely users will buy a specific item. 
+
+<img src="images/recom.png" width="500" style="padding-top:5px">
+
+```python
+class MF(nn.Module):
+    def __init__(self, num_users, num_items, emb_size=100, seed=23):
+        super().__init__()
+        torch.manual_seed(seed)
+        self.user_emb = nn.Embedding(num_users, emb_size)
+        self.user_bias = nn.Embedding(num_users, 1)
+        self.item_emb = nn.Embedding(num_items, emb_size)
+        self.item_bias = nn.Embedding(num_items, 1)
+        self.user_emb.weight.data.uniform_(0,0.05)
+        self.item_emb.weight.data.uniform_(0,0.05)
+        self.user_bias.weight.data.uniform_(-0.01,0.01)
+        self.item_bias.weight.data.uniform_(-0.01,0.01)
+
+    def forward(self, u, v):
+        U = self.user_emb(u)
+        V = self.item_emb(v)
+        b_u = self.user_bias(u).squeeze()
+        b_v = self.item_bias(v).squeeze()
+        return torch.sigmoid((U*V).sum(1) +  b_u  + b_v)
+```
 
 
 
+In this repo, I implement the MF algorithm system by PyTorch and NumPy. <br>
 
+<img src="images/mf.png" width="500" style="padding-top:5px">
+
+In [NumPy MF model](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/MatrixFactorization/mf.py), we can calculate the gradient by using SciPy sparse matrix which can speed up calculation since we don't need to persistent the whole utility matrix in computer memory. After we complete the training process and get the embedding for users and items, we can recommend items to user based on prediction. 
+
+In [PyTorch MF model](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/MatrixFactorization/mf.py), we firstly initialize user embedding and item embedding by calling `nn.Embedding()`. And choose the loss function ( `MSE` for regression and `log-loss` for classification) and calling `.backward()` to calculate the gradient through backpropagation and use `.step()` to update the parameter.
 
 ## Unsupervised Learning Algorithm
 
