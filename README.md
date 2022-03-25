@@ -22,10 +22,10 @@ Regularization using the constraint on the average magnitude of the coefficients
 
 L1 regularization adds the sum of the absolute value of the coefficient to loss function which help reduce model complexity and improve generality. The L1 regularized coefficients located on the diamond-shaped zone has below pros:
 
-1. L1 regularization allows superfluous coefficients to shrink to zero
+1. L1 regularization allows superfluous coefficients to shrink to zero <img src="images/L1.png" width="200" style="padding-top:5px" align="right"> 
 2. L1 regularization can reduce the number of features and select features
 
-<img src="images/L1_for.png" width="200" style="padding-top:5px" align="top"> <img src="images/L1.png" width="200" style="padding-top:5px"> 
+<img src="images/L1_for.png" width="200" style="padding-top:5px" align="top">
 
 ```python
 class LassoLogistic:
