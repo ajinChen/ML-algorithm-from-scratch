@@ -184,7 +184,73 @@ After node class implementation, we need to define general decision tree class t
 
 ## Naïve Bayes
 
-...
+Naïve Bayes model is based on the Bayes' theorem under the naïve assumption: conditional independence. In this assumption, we don't consider the order of the words (if we don't use this assumption, we need to consider all combinations (relation) for n words, which grow exponentially with length n)
+
+<img src="images/Bayes.png" width="200" style="padding-top:5px"> 
+
+#### Estimate P(w|c)
+
+We need to avoid `P(w|c) = 0` in below cases since it will lead to entire product goes to zero:
+
+1. w never use in docs of class c
+2. Dealing with unknown or misspelled words
+3. Likelihood of any unknown / never used word is small: `1 / (wordcount(c) + |V| + 1)`
+   in which `|V|` is the number of uni-word in train data
+
+<img src="images/w_bayes.png" width="200" style="padding-top:5px"> <img src="images/w2d.png" width="200" style="padding-top:5px"> 
+
+```python
+class NaiveBayes:
+    """
+    This object behaves like a sklearn model with fit(X,y) and predict(X) functions.
+    Limited to two classes, 0 and 1 in the y target.
+    """
+    def __init__(self, pwc1=None, pwc0=None, p_c=None):
+        self.pwc1 = pwc1
+        self.pwc0 = pwc0
+        self.p_c = p_c
+
+    def fit(self, X:np.ndarray, y:np.ndarray) -> None:
+        ...
+        # p(w,c)
+        vocab_num = len(X[0]) - 1
+        y_0 = (y - 1) * -1
+        wc_wc1, wc_wc0 = np.dot(y.reshape(1, -1), X) + 1, np.dot(y_0.reshape(1, -1), X) + 1
+        wc_c1, wc_c0 = np.sum(wc_wc1) + vocab_num + 1, np.sum(wc_wc0) + vocab_num + 1
+        p_wc1, p_wc0 = wc_wc1 / wc_c1, wc_wc0 / wc_c0
+        self.pwc1, self.pwc0 = p_wc1, p_wc0
+				...
+```
+
+#### Estimate P(c|d)
+
+We need to avoid floating point underflow, so need to use `log` to change product becomes summation.
+
+<img src="images/d2c.png" width="200" style="padding-top:5px">
+
+- `P(c)` is ratio of docs in *c* to overall number of docs
+- `P(w|c)` is ratio of word count of *w* in *c* to total word count in *c*
+
+```python
+class NaiveBayes:
+    """
+    This object behaves like a sklearn model with fit(X,y) and predict(X) functions.
+    Limited to two classes, 0 and 1 in the y target.
+    """
+    ...
+    def predict(self, X:np.ndarray) -> np.ndarray:
+        log_pwc1 = np.log(self.pwc1).reshape(-1, 1)
+        pro_1 = np.dot(X, log_pwc1) + np.log(self.p_c[1])
+        log_pwc0 = np.log(self.pwc0).reshape(-1, 1)
+        pro_0 = np.dot(X, log_pwc0) + np.log(self.p_c[0])
+        pred = []
+        for i in range(len(pro_1)):
+            if pro_1[i] >= pro_0[i]:
+                pred.append(1)
+            else:
+                pred.append(0)
+        return np.array(pred)
+```
 
 ## Adaboost
 
