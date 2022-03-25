@@ -1,22 +1,185 @@
 # Machine Learning Implementation from scratch
 
+In this repo, I will show the theory of different models, including supervised learning and unsupervised learning, and implement these models from scratch.
 
+Thanks for Prof. Terence Parr's guidance.
 
 ## Supervised Learning Algorithm
 
-...
+Supervised learning is a subcategory of machine learning which learns from labeled training data, helps you to predict outcomes for unforeseen data. It means some data is already tagged with the correct answer and seems like in the presence of a supervisor or a teacher.
 
-### Regularization
+## Regularization
 
-...
+Motivation for [regularization](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/LinearRegularization/linreg.py):
+
+1. Model with too many parameters will overfit
+2. Outliers can skew line and cause bad generalization
+3. Data with too many features can get extreme coefficients
+
+Regularization using the constraint on the average magnitude of the coefficients to bring slope back down but with some bias.
+
+### L1 (Lasso) Regularization
+
+L1 regularization adds the sum of the absolute value of the coefficient to loss function which help reduce model complexity and improve generality. The L1 regularized coefficients located on the diamond-shaped zone has below pros:
+
+1. L1 regularization allows superfluous coefficients to shrink to zero
+2. L1 regularization can reduce the number of features and select features
+
+<img src="images/L1_for.png" width="200" style="padding-top:5px"> <img src="images/L1.png" width="400" style="padding-top:5px"> 
+
+```python
+class LassoLogistic:
+    def __init__(self,
+                 eta=0.00001, lmbda=0.0,
+                 max_iter=1000):
+        self.eta = eta
+        self.lmbda = lmbda
+        self.max_iter = max_iter
+        ...
+```
+
+### L2 (Ridge) Regularization
+
+L2 regularization adds the sum of the square of the parameters into the loss function which also help reduce model complexity and improve generality. The L2 regularized coefficients located on the circle-shaped zone has below pros: 
+
+1. L2 regularization tends to shrink coefficients evenly
+2. L2 regularization useful when you have collinear/codependent features since L2 regularization will reduce the variance of these coefficient estimates
+
+<img src="images/L2_for.png" width="200" style="padding-top:5px"> <img src="images/L2.png" width="400" style="padding-top:5px"> 
+
+```python
+class RidgeRegression:
+    def __init__(self,
+                 eta=0.00001, lmbda=0.0,
+                 max_iter=1000, y_mean=0):
+        self.eta = eta
+        self.lmbda = lmbda
+        self.max_iter = max_iter
+        self.y_mean = y_mean
+    		...
+```
+
+##### Key Conclusion for Regularization:
+
+1. Regularization increases generality at cost of some bias
+2. Hard constraint: min-loss is inside safe zone or on zone border
+   Soft constraint: penalty discourages bigger parameters
+3. L1 encourages zero 𝛽, L1 zero out unpredictive vars
+   L2 discourages any 𝛽 from getting much bigger than the others
+4. OLS & L2 regularized linear regression have symbolic solutions
+   L1 linear regression and L1/L2 logistic regression require iterative solution
 
 ### Decision Tree
 
-...
+Decision Tree is a tree-based algorithm which find split point giving least MSE (least residual variance) or least gini impurity (high purity) and partitions feature space into rectangular hypervolumes predicting average/most common y in volume.
+
+##### Design Decision Tree Structure:
+
+Internal tree node class: perform feature comparisons and split
+
+```python
+class DecisionNode:
+    def __init__(self, col, split, lchild, rchild):
+        self.col = col
+        self.split = split
+        self.lchild = lchild
+        self.rchild = rchild
+
+    def predict(self, x_test):
+        if x_test[self.col] <= self.split:
+            return self.lchild.predict(x_test)
+        else:
+            return self.rchild.predict(x_test)
+```
+
+Leaf node class: make prediction for rectangular hypervolumes
+
+```python
+class LeafNode:
+    def __init__(self, y=None, prediction=None):
+        self.prediction = prediction
+
+    def predict(self, x_test):
+        return self.prediction
+```
+
+After node class implementation, we need to define general decision tree class to realize `fit`, `best_split_func`, and `predict` for [RegressionTree & ClassifierTree class](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/DecisionTree/dtree.py)
+
+##### Hyperparameter
+
+`Max_depth`: Restricts how many splits tree can make preventing tree from getting too specific to training set
+
+`min_samples_leaf`: tree don’t split regions less than min_samples_leaf records
+
+| Pros                                                         | Cons                                       |
+| ------------------------------------------------------------ | ------------------------------------------ |
+| Avoid inefficiency and the distance metric requirement of kNN | Easy to overfitting and killing generality |
+| No need to normalize data                                    |                                            |
+| partition (nominal/ordinal) categorical variables by subsets as "regions" |                                            |
 
 ### Random Forest
 
-...
+[Random forest](https://github.com/ajinChen/machine-learning-from-scratch/blob/main/RandomForest/rf.py) is a advanced algorithm using the collection of decision trees trained on subset of training data (bootstrapping) and sometimes ignoring features, average or majority vote among trees
+
+The key of random forest is adding randomness:
+
+1. Random subset of training data
+   Bagging uses bootstrapping: from 𝑛 records, randomly select 𝑛 with replacement
+
+   ```python
+   def bootstrap(X, y, size):
+       idx = [i for i in range(size)]
+       n = size
+       X_boot, idx_sample, y_boot = resample(
+           X, idx, y, replace=True, n_samples=int(n))
+       idx_oob = list(set(idx) - set(idx_sample))
+       return X_boot, y_boot, idx_oob
+   ```
+
+2. Random subset of features
+   `max_features` : Degrade training by forgetting some features exist when making splitting decisions
+
+3. A bag of decision trees
+   Give many weaker decision trees to make average predict from them
+
+   ```python
+   class RandomForest:
+       ...
+       def fit(self, X, y):
+           """
+           Given an (X, y) training set, fit all n_estimators trees to different,       
+           bootstrapped versions of the training data.
+           """
+           rf_list = []
+           for i in range(self.n_estimators):
+               X_boot, y_boot, oob_idxs = bootstrap(X, y, len(X))
+               T = self.tree(oob_idxs)
+               rf_list.append(T.fit(X_boot, y_boot))
+           self.trees = rf_list
+       ...
+   ```
+
+4. Out-of-bag (OOB) score
+
+   Use the out-of-bag data of each decision tree as the validation set.
+
+   ```python
+   def compute_oob_score(self, X, y):
+       n = len(X)
+       oob_counts = np.zeros((n,))
+       oob_preds = np.zeros((n,))
+       for tree in self.trees:
+         for idx in tree.oob_idxs:
+             leafsizes = len(tree.leaf(X[idx]).y_value())
+             oob_preds[idx] += leafsizes * tree.predict(X[idx])
+             oob_counts[idx] += leafsizes
+       oob_avg_preds = oob_preds[oob_preds != 0] / oob_counts[oob_counts != 0]
+       return r2_score(y[oob_counts != 0], oob_avg_preds)
+   ```
+
+| Pros                                            | Cons                               |
+| ----------------------------------------------- | ---------------------------------- |
+| Increase accuracy without a tendency to overfit | Slow and need a lot of computation |
 
 ### Naïve Bayes
 
